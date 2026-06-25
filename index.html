@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExamSeat – Sapthagiri NPS University</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ── */
+:root {
+  --ink:     #0F1117;
+  --ink2:    #3A3D4A;
+  --ink3:    #787D8C;
+  --paper:   #F7F5F0;
+  --white:   #FFFFFF;
+  --gold:    #C8943A;
+  --gold-lt: #F5E9D4;
+  --blue:    #1A5FA8;
+  --blue-lt: #E4EEF9;
+  --green:   #2E6B1A;
+  --green-lt:#E6F3DF;
+  --red:     #B52B2B;
+  --red-lt:  #FBEAEA;
+  --amber:   #9A5412;
+  --amber-lt:#FAF0E2;
+  --border:  rgba(15,17,23,0.10);
+  --shadow:  0 2px 12px rgba(15,17,23,0.08);
+  --shadow-lg:0 8px 40px rgba(15,17,23,0.14);
+  --r:       10px;
+  --r-sm:    7px;
+  font-size: 14px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; }
+h1,h2,h3 { font-family: 'DM Serif Display', serif; }
+
+/* ── PAGES ── */
+.page { display: none; animation: fadeIn .25s ease; }
+.page.active { display: block; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+/* ════════════════════════════════════════
+   LANDING
+════════════════════════════════════════ */
+#page-landing {
+  min-height: 100vh;
+  background: var(--ink);
+  display: none;
+}
+#page-landing.active { display: flex; flex-direction: column; }
+
+.landing-nav {
+  padding: 20px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.logo { display: flex; align-items: center; gap: 12px; }
+.logo-mark {
+  width: 38px; height: 38px;
+  background: var(--gold);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Serif Display', serif;
+  font-size: 18px; color: var(--ink); font-weight: 700;
+}
+.logo-text { font-family: 'DM Serif Display', serif; color: #fff; font-size: 17px; letter-spacing: 0.3px; }
+.logo-sub { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 1px; }
+.nav-yr { font-size: 12px; color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.12); padding: 4px 12px; border-radius: 20px; }
+
+.landing-hero {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 60px 24px;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 80% 60% at 50% 80%, rgba(200,148,58,0.07) 0%, transparent 70%);
+}
+.hero-eyebrow {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 8px;
+}
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content: ''; width: 32px; height: 1px; background: var(--gold); opacity: 0.5;
+}
+.landing-hero h1 {
+  font-size: clamp(36px,5vw,64px);
+  color: #fff; line-height: 1.08;
+  letter-spacing: -1px; margin-bottom: 20px;
+}
+.landing-hero h1 em { color: var(--gold); font-style: italic; }
+.landing-hero p {
+  font-size: 16px; color: rgba(255,255,255,0.5);
+  max-width: 480px; line-height: 1.65; margin-bottom: 56px;
+}
+
+.portal-cards {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 16px; max-width: 820px; width: 100%;
+}
+.pcard {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 16px; padding: 32px 24px;
+  cursor: pointer; transition: all 0.2s;
+  text-align: left; position: relative; overflow: hidden;
+}
+.pcard::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 60%);
+  pointer-events: none;
+}
+.pcard:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(255,255,255,0.18);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+}
+.pcard-icon {
+  width: 52px; height: 52px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; margin-bottom: 20px;
+}
+.pcard-icon.s { background: rgba(26,95,168,0.25); }
+.pcard-icon.a { background: rgba(200,148,58,0.20); }
+.pcard-icon.i { background: rgba(46,107,26,0.25); }
+.pcard h3 { color: #fff; font-family: 'DM Serif Display', serif; font-size: 20px; margin-bottom: 6px; }
+.pcard p { color: rgba(255,255,255,0.42); font-size: 13px; line-height: 1.55; margin-bottom: 20px; }
+.pcard-arrow {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; color: rgba(255,255,255,0.35); letter-spacing: 0.5px;
+  transition: color 0.2s, gap 0.2s;
+}
+.pcard:hover .pcard-arrow { color: var(--gold); gap: 10px; }
+.pcard-tag {
+  position: absolute; top: 16px; right: 16px;
+  font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+  color: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.1);
+  padding: 2px 8px; border-radius: 20px;
+}
+
+.landing-footer {
+  padding: 16px 48px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.landing-footer p { font-size: 12px; color: rgba(255,255,255,0.25); }
+.demo-creds {
+  display: flex; gap: 16px;
+}
+.cred-chip {
+  font-size: 11px; color: rgba(255,255,255,0.35);
+  border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px;
+}
+.cred-chip strong { color: rgba(255,255,255,0.6); }
+
+/* ════════════════════════════════════════
+   AUTH
+════════════════════════════════════════ */
+#page-auth { min-height: 100vh; background: var(--ink); display: none; }
+#page-auth.active { display: flex; align-items: center; justify-content: center; }
+.auth-wrap { width: 420px; padding: 20px; }
+.auth-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: rgba(255,255,255,0.4); font-size: 13px; cursor: pointer; margin-bottom: 32px;
+  transition: color 0.15s;
+}
+.auth-back:hover { color: rgba(255,255,255,0.7); }
+.auth-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 20px; padding: 36px 32px;
+}
+.auth-icon { font-size: 36px; margin-bottom: 16px; }
+.auth-card h2 { color: #fff; font-size: 26px; margin-bottom: 4px; }
+.auth-card .subtitle { color: rgba(255,255,255,0.4); font-size: 14px; margin-bottom: 28px; }
+.auth-label { display: block; font-size: 11px; letter-spacing: 0.8px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 7px; }
+.auth-input {
+  width: 100%; background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.10); border-radius: var(--r-sm);
+  padding: 12px 14px; font-size: 14px; color: #fff; margin-bottom: 16px; outline: none;
+  font-family: 'DM Sans', sans-serif; transition: border-color 0.15s;
+}
+.auth-input:focus { border-color: var(--gold); }
+.auth-input::placeholder { color: rgba(255,255,255,0.2); }
+.auth-btn {
+  width: 100%; background: var(--gold); color: var(--ink);
+  border: none; border-radius: var(--r-sm); padding: 13px;
+  font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 8px;
+  font-family: 'DM Sans', sans-serif; transition: opacity 0.15s;
+}
+.auth-btn:hover { opacity: 0.88; }
+.auth-err { background: rgba(181,43,43,0.18); border: 1px solid rgba(181,43,43,0.4); border-radius: var(--r-sm); padding: 10px 14px; color: #ff9494; font-size: 13px; margin-top: 12px; }
+
+/* ════════════════════════════════════════
+   TOPBAR (shared by all portals)
+════════════════════════════════════════ */
+.topbar {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 0 28px;
+  height: 58px;
+  display: flex; align-items: center; gap: 14px;
+  position: sticky; top: 0; z-index: 20;
+  box-shadow: 0 1px 0 var(--border);
+}
+.topbar-logo { display: flex; align-items: center; gap: 9px; }
+.topbar-logo-mark {
+  width: 30px; height: 30px; background: var(--ink); border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Serif Display', serif; color: var(--gold); font-size: 14px;
+}
+.topbar-title { font-family: 'DM Serif Display', serif; font-size: 15px; }
+.topbar-sep { width: 1px; height: 22px; background: var(--border); }
+.topbar-section { font-size: 13px; color: var(--ink3); }
+.topbar-spacer { flex: 1; }
+.topbar-user { display: flex; align-items: center; gap: 8px; }
+.topbar-avatar {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--gold-lt); color: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 600;
+}
+.topbar-name { font-size: 13px; font-weight: 500; }
+.topbar-role { font-size: 11px; color: var(--ink3); }
+.btn-logout {
+  background: none; border: 1px solid var(--border); border-radius: var(--r-sm);
+  padding: 6px 14px; font-size: 12px; cursor: pointer; color: var(--ink2);
+  font-family: 'DM Sans', sans-serif; transition: background 0.12s;
+}
+.btn-logout:hover { background: var(--paper); }
+
+/* ════════════════════════════════════════
+   MAIN LAYOUT
+════════════════════════════════════════ */
+.main-layout { display: flex; min-height: calc(100vh - 58px); }
+.sidebar {
+  width: 220px; flex-shrink: 0;
+  background: var(--white);
+  border-right: 1px solid var(--border);
+  padding: 20px 12px;
+  display: flex; flex-direction: column; gap: 2px;
+  position: sticky; top: 58px; height: calc(100vh - 58px); overflow-y: auto;
+}
+.sidebar-label {
+  font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase;
+  color: var(--ink3); padding: 8px 12px 4px; margin-top: 8px;
+}
+.sidebar-label:first-child { margin-top: 0; }
+.nav-item {
+  display: flex; align-items: center; gap: 9px;
+  padding: 9px 12px; border-radius: var(--r-sm);
+  cursor: pointer; font-size: 13px; color: var(--ink2);
+  transition: all 0.12s; border: none; background: none;
+  width: 100%; text-align: left; font-family: 'DM Sans', sans-serif;
+}
+.nav-item:hover { background: var(--paper); color: var(--ink); }
+.nav-item.active { background: var(--blue-lt); color: var(--blue); font-weight: 500; }
+.nav-icon { width: 18px; text-align: center; font-size: 14px; }
+.main-content { flex: 1; padding: 32px 36px; overflow-x: hidden; }
+
+/* ════════════════════════════════════════
+   COMMON COMPONENTS
+════════════════════════════════════════ */
+.page-header { margin-bottom: 28px; }
+.page-header h2 { font-size: 26px; color: var(--ink); }
+.page-header p { font-size: 13px; color: var(--ink3); margin-top: 4px; }
+
+.stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 28px; }
+.stat-box { background: var(--white); border: 1px solid var(--border); border-radius: var(--r); padding: 18px 20px; }
+.stat-box .val { font-family: 'DM Serif Display', serif; font-size: 32px; line-height: 1; }
+.stat-box .lbl { font-size: 12px; color: var(--ink3); margin-top: 4px; }
+.stat-blue .val  { color: var(--blue); }
+.stat-gold .val  { color: var(--gold); }
+.stat-green .val { color: var(--green); }
+.stat-red .val   { color: var(--red); }
+
+.card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r); margin-bottom: 20px; overflow: hidden; }
+.card-head { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.card-head h3 { font-size: 15px; }
+.card-body { padding: 20px; }
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-full { grid-column: 1/-1; }
+.field { display: flex; flex-direction: column; gap: 5px; }
+.field label { font-size: 11px; letter-spacing: 0.5px; color: var(--ink3); font-weight: 500; text-transform: uppercase; }
+.field input, .field select, .field textarea {
+  border: 1px solid var(--border); border-radius: var(--r-sm);
+  padding: 9px 12px; font-size: 13px; color: var(--ink);
+  background: var(--white); outline: none;
+  font-family: 'DM Sans', sans-serif; transition: border-color 0.15s;
+}
+.field input:focus, .field select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(26,95,168,0.08); }
+
+.btn { border: 1px solid var(--border); border-radius: var(--r-sm); padding: 8px 18px; font-size: 13px; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.12s; background: var(--white); color: var(--ink); font-weight: 500; white-space: nowrap; }
+.btn:hover { background: var(--paper); }
+.btn-primary { background: var(--blue); color: #fff; border-color: var(--blue); }
+.btn-primary:hover { background: #144D8C; }
+.btn-gold { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+.btn-gold:hover { background: #B07A28; }
+.btn-green { background: var(--green); color: #fff; border-color: var(--green); }
+.btn-green:hover { background: #1F4E12; }
+.btn-red { background: var(--red); color: #fff; border-color: var(--red); }
+.btn-red:hover { background: #8A1E1E; }
+.btn-sm { padding: 5px 12px; font-size: 12px; }
+.btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+.btn-full { width: 100%; }
+
+.msg-ok  { background: var(--green-lt); border: 1px solid rgba(46,107,26,0.25); border-radius: var(--r-sm); padding: 10px 14px; color: var(--green); font-size: 13px; margin-top: 12px; }
+.msg-err { background: var(--red-lt); border: 1px solid rgba(181,43,43,0.25); border-radius: var(--r-sm); padding: 10px 14px; color: var(--red); font-size: 13px; margin-top: 12px; }
+.msg-info{ background: var(--blue-lt); border: 1px solid rgba(26,95,168,0.2); border-radius: var(--r-sm); padding: 10px 14px; color: var(--blue); font-size: 13px; margin-top: 12px; }
+
+.list-row { display: flex; align-items: center; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid var(--border); }
+.list-row:last-child { border-bottom: none; }
+.list-row-l h4 { font-size: 14px; font-weight: 500; }
+.list-row-l p { font-size: 12px; color: var(--ink3); margin-top: 2px; }
+.list-row-r { display: flex; align-items: center; gap: 8px; }
+
+.chip { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; white-space: nowrap; }
+.chip-blue   { background: var(--blue-lt); color: var(--blue); }
+.chip-green  { background: var(--green-lt); color: var(--green); }
+.chip-gold   { background: var(--gold-lt); color: var(--gold); }
+.chip-red    { background: var(--red-lt); color: var(--red); }
+.chip-amber  { background: var(--amber-lt); color: var(--amber); }
+
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.data-table th { text-align: left; padding: 8px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ink3); border-bottom: 1px solid var(--border); background: var(--paper); }
+.data-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: var(--paper); }
+
+/* ════════════════════════════════════════
+   SEAT GRID
+════════════════════════════════════════ */
+.seat-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 6px; }
+.seat {
+  aspect-ratio: 1; border-radius: 8px; border: 1.5px solid;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600; cursor: pointer; transition: transform 0.12s, box-shadow 0.12s;
+  user-select: none; line-height: 1.2;
+}
+.seat:hover:not(.seat-void):not(.seat-empty) { transform: scale(1.08); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+.seat-num { font-size: 12px; font-weight: 700; }
+.seat-srn { font-size: 8px; opacity: 0.7; margin-top: 1px; }
+.seat-empty    { background: #f3f3f2; color: #bbb; border-color: #e8e7e4; cursor: default; }
+.seat-assigned { background: var(--blue-lt); color: #0D3E74; border-color: #99BEE3; }
+.seat-blocked  { background: #ededeb; color: #bbb; border-color: #dedcda; cursor: pointer; }
+.seat-blocked .seat-num { opacity: 0.4; }
+.seat-block-icon { font-size: 15px; }
+.seat-present    { background: var(--blue-lt); color: #0D3E74; border-color: #99BEE3; }
+.seat-absent     { background: var(--red-lt); color: var(--red); border-color: rgba(181,43,43,0.3); }
+.seat-malpractice{ background: var(--amber-lt); color: var(--amber); border-color: rgba(154,84,18,0.3); }
+.seat-highlight  { background: var(--blue); color: #fff; border-color: #144D8C; box-shadow: 0 0 0 3px rgba(26,95,168,0.25); }
+.seat-void       { background: transparent; border: 1.5px dashed #e0deda; cursor: default; }
+
+.grid-legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--ink3); margin-bottom: 14px; }
+.legend-item { display: flex; align-items: center; gap: 5px; }
+.legend-dot  { width: 11px; height: 11px; border-radius: 3px; border: 1.5px solid; flex-shrink: 0; }
+
+/* ════════════════════════════════════════
+   STUDENT PORTAL
+════════════════════════════════════════ */
+#page-student { min-height: 100vh; }
+.student-hero {
+  background: var(--ink); padding: 56px 24px 64px;
+  text-align: center; position: relative; overflow: hidden;
+}
+.student-hero::after {
+  content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+  height: 40px; background: var(--paper);
+  clip-path: ellipse(55% 100% at 50% 100%);
+}
+.student-hero h1 { color: #fff; font-size: 34px; margin-bottom: 8px; }
+.student-hero p { color: rgba(255,255,255,0.45); font-size: 15px; margin-bottom: 32px; }
+.search-bar {
+  display: flex; gap: 8px; max-width: 460px; margin: 0 auto;
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px; padding: 6px 6px 6px 16px;
+}
+.search-bar input {
+  flex: 1; background: none; border: none; color: #fff; font-size: 15px;
+  outline: none; font-family: 'DM Sans', sans-serif;
+}
+.search-bar input::placeholder { color: rgba(255,255,255,0.3); }
+.search-bar button {
+  background: var(--gold); color: var(--ink); border: none; border-radius: 8px;
+  padding: 10px 22px; font-size: 13px; font-weight: 600; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; white-space: nowrap;
+}
+.student-result-wrap { max-width: 680px; margin: 0 auto; padding: 32px 24px; }
+
+.welcome-banner {
+  background: var(--white); border: 1px solid var(--border); border-radius: var(--r);
+  padding: 20px 24px; display: flex; align-items: center; gap: 16px;
+  margin-bottom: 24px; box-shadow: var(--shadow);
+}
+.welcome-avatar {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--blue); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Serif Display', serif; font-size: 20px; flex-shrink: 0;
+}
+.welcome-banner h3 { font-size: 18px; margin-bottom: 2px; }
+.welcome-banner p { font-size: 13px; color: var(--ink3); }
+
+.exam-block {
+  background: var(--white); border: 1px solid var(--border); border-radius: var(--r);
+  margin-bottom: 16px; overflow: hidden; box-shadow: var(--shadow);
+}
+.exam-block-head {
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: flex-start;
+  background: linear-gradient(135deg, var(--paper) 0%, var(--white) 100%);
+}
+.exam-block-head h4 { font-size: 17px; margin-bottom: 3px; }
+.exam-block-head .code { font-size: 12px; color: var(--ink3); }
+.exam-meta-row {
+  display: grid; grid-template-columns: repeat(2,1fr);
+  gap: 0; border-bottom: 1px solid var(--border);
+}
+.meta-cell { padding: 12px 20px; border-right: 1px solid var(--border); }
+.meta-cell:nth-child(even) { border-right: none; }
+.meta-cell .ml { font-size: 11px; color: var(--ink3); margin-bottom: 3px; }
+.meta-cell .mv { font-size: 13px; font-weight: 500; }
+.exam-block-grid { padding: 16px 20px; }
+.exam-block-grid .grid-hint { font-size: 12px; color: var(--ink3); margin-bottom: 10px; }
+
+/* ════════════════════════════════════════
+   CSV UPLOAD
+════════════════════════════════════════ */
+.upload-zone {
+  border: 2px dashed var(--border); border-radius: var(--r);
+  padding: 36px; text-align: center; cursor: pointer;
+  transition: all 0.15s; background: var(--paper);
+}
+.upload-zone:hover { border-color: var(--blue); background: var(--blue-lt); }
+.upload-zone input { display: none; }
+.upload-zone .up-icon { font-size: 32px; margin-bottom: 10px; }
+.upload-zone h4 { font-size: 15px; margin-bottom: 4px; }
+.upload-zone p { font-size: 12px; color: var(--ink3); }
+
+/* ════════════════════════════════════════
+   TOAST
+════════════════════════════════════════ */
+#toast {
+  position: fixed; bottom: 24px; right: 24px;
+  background: var(--ink); color: #fff;
+  border-radius: var(--r); padding: 12px 20px;
+  font-size: 13px; z-index: 9999;
+  transform: translateY(64px); opacity: 0;
+  transition: all 0.25s cubic-bezier(.34,1.56,.64,1);
+  pointer-events: none; box-shadow: var(--shadow-lg);
+  display: flex; align-items: center; gap: 8px; max-width: 320px;
+}
+#toast.show { transform: translateY(0); opacity: 1; }
+
+/* ════════════════════════════════════════
+   INVIGILATOR
+════════════════════════════════════════ */
+.room-select-banner {
+  background: var(--white); border: 1px solid var(--border); border-radius: var(--r);
+  padding: 16px 20px; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+}
+.room-select-banner label { font-size: 12px; color: var(--ink3); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+.room-select-banner select { flex: 1; min-width: 200px; border: 1px solid var(--border); border-radius: var(--r-sm); padding: 8px 12px; font-size: 13px; font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--white); outline: none; }
+
+.cycle-tip {
+  background: var(--gold-lt); border: 1px solid rgba(200,148,58,0.3); border-radius: var(--r-sm);
+  padding: 10px 14px; font-size: 12px; color: var(--amber); margin-bottom: 14px;
+  display: flex; align-items: center; gap: 6px;
+}
+
+@media (max-width: 768px) {
+  .portal-cards { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: repeat(2,1fr); }
+  .main-layout { flex-direction: column; }
+  .sidebar { width: 100%; height: auto; position: static; flex-direction: row; overflow-x: auto; }
+  .main-content { padding: 20px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .landing-nav, .landing-footer { padding: 16px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════ LANDING ════════ -->
+<div id="page-landing" class="page active">
+  <nav class="landing-nav">
+    <div class="logo">
+      <div class="logo-mark">S</div>
+      <div>
+        <div class="logo-text">ExamSeat</div>
+        <div class="logo-sub">Sapthagiri NPS University</div>
+      </div>
+    </div>
+    <span class="nav-yr">Academic Year 2025-26</span>
+  </nav>
+  <div class="landing-hero">
+    <div class="hero-bg"></div>
+    <div class="hero-eyebrow">Exam Management System</div>
+    <h1>Seating, Simplified<br>for <em>Every</em> Exam</h1>
+    <p>One platform for students to find their seat, admins to manage allocations, and invigilators to mark attendance.</p>
+    <div class="portal-cards">
+      <div class="pcard" onclick="showPage('student')">
+        <div class="pcard-tag">No Login</div>
+        <div class="pcard-icon s">👨‍🎓</div>
+        <h3>Student</h3>
+        <p>Search by your SRN to view exam schedule, room, floor and your allocated seat.</p>
+        <div class="pcard-arrow">Enter portal →</div>
+      </div>
+      <div class="pcard" onclick="showAuth('admin')">
+        <div class="pcard-tag">Login Required</div>
+        <div class="pcard-icon a">⚙️</div>
+        <h3>Admin</h3>
+        <p>Manage departments, subjects, rooms, exams and allocate students to seats.</p>
+        <div class="pcard-arrow">Enter portal →</div>
+      </div>
+      <div class="pcard" onclick="showAuth('invigilator')">
+        <div class="pcard-tag">Login Required</div>
+        <div class="pcard-icon i">📋</div>
+        <h3>Invigilator</h3>
+        <p>Access your assigned room, mark attendance, flag absent or malpractice cases.</p>
+        <div class="pcard-arrow">Enter portal →</div>
+      </div>
+    </div>
+  </div>
+  <footer class="landing-footer">
+    <p>© 2026 Sapthagiri NPS University, Bengaluru</p>
+   
+  </footer>
+</div>
+
+<!-- ════════ AUTH ════════ -->
+<div id="page-auth" class="page">
+  <div class="auth-wrap">
+    <div class="auth-back" onclick="showPage('landing')">← Back to home</div>
+    <div class="auth-card">
+      <div class="auth-icon" id="auth-icon">⚙️</div>
+      <h2 id="auth-title">Admin Login</h2>
+      <p class="subtitle" id="auth-sub">Enter your credentials to access the admin portal</p>
+      <label class="auth-label">Username</label>
+      <input class="auth-input" type="text" id="auth-un" placeholder="e.g. admin" onkeydown="if(event.key==='Enter')doLogin()">
+      <label class="auth-label">Password</label>
+      <input class="auth-input" type="password" id="auth-pw" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+      <div id="auth-err"></div>
+      <button class="auth-btn" onclick="doLogin()">Sign In →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ STUDENT ════════ -->
+<div id="page-student" class="page">
+  <div class="student-hero">
+    <h1>Find Your Seat</h1>
+    <p>Enter your Student Registration Number to view your exam schedule and seat</p>
+    <div class="search-bar">
+      <input type="text" id="srn-input" placeholder="e.g. 24SUUBECS0001" oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')searchStudent()">
+      <button onclick="searchStudent()">Search</button>
+    </div>
+    <div style="margin-top:12px" id="srn-err"></div>
+    <div style="margin-top:10px">
+      <span style="font-size:12px;color:rgba(255,255,255,0.3)">← Back to</span>
+      <span style="font-size:12px;color:var(--gold);cursor:pointer;margin-left:4px" onclick="showPage('landing')">Home</span>
+    </div>
+  </div>
+  <div id="student-result" style="display:none"></div>
+</div>
+
+<!-- ════════ ADMIN ════════ -->
+<div id="page-admin" class="page">
+  <div class="topbar">
+    <div class="topbar-logo">
+      <div class="topbar-logo-mark">S</div>
+      <span class="topbar-title">ExamSeat</span>
+    </div>
+    <div class="topbar-sep"></div>
+    <span class="topbar-section">Admin Portal</span>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-user">
+      <div class="topbar-avatar" id="admin-avatar">AD</div>
+      <div>
+        <div class="topbar-name" id="admin-name">Admin</div>
+        <div class="topbar-role">Administrator</div>
+      </div>
+      <button class="btn-logout" onclick="doLogout()">Logout</button>
+    </div>
+  </div>
+  <div class="main-layout">
+    <nav class="sidebar">
+      <div class="sidebar-label">Dashboard</div>
+      <button class="nav-item active" onclick="adminNav('overview',this)"><span class="nav-icon">📊</span>Overview</button>
+      <div class="sidebar-label">Manage</div>
+      <button class="nav-item" onclick="adminNav('students',this)"><span class="nav-icon">👥</span>Students</button>
+      <button class="nav-item" onclick="adminNav('departments',this)"><span class="nav-icon">🏛</span>Departments</button>
+      <button class="nav-item" onclick="adminNav('subjects',this)"><span class="nav-icon">📚</span>Subjects</button>
+      <button class="nav-item" onclick="adminNav('rooms',this)"><span class="nav-icon">🏢</span>Rooms</button>
+      <button class="nav-item" onclick="adminNav('exams',this)"><span class="nav-icon">📝</span>Exams</button>
+      <div class="sidebar-label">Seating</div>
+      <button class="nav-item" onclick="adminNav('seating',this)"><span class="nav-icon">💺</span>Allocate Seats</button>
+      <button class="nav-item" onclick="adminNav('invigilators',this)"><span class="nav-icon">👤</span>Invigilators</button>
+    </nav>
+    <div class="main-content" id="admin-content"></div>
+  </div>
+</div>
+
+<!-- ════════ INVIGILATOR ════════ -->
+<div id="page-invig" class="page">
+  <div class="topbar">
+    <div class="topbar-logo">
+      <div class="topbar-logo-mark">S</div>
+      <span class="topbar-title">ExamSeat</span>
+    </div>
+    <div class="topbar-sep"></div>
+    <span class="topbar-section">Invigilator Portal</span>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-user">
+      <div class="topbar-avatar" id="invig-avatar">IN</div>
+      <div>
+        <div class="topbar-name" id="invig-name">Invigilator</div>
+        <div class="topbar-role">Invigilator</div>
+      </div>
+      <button class="btn-logout" onclick="doLogout()">Logout</button>
+    </div>
+  </div>
+  <div class="main-content" id="invig-content"></div>
+</div>
+
+<div id="toast">✓ Done</div>
+
+<script>
+  // Keep this inside your index.html script tag
+async function fetchData() {
+    try {
+        const response = await fetch('http://localhost:5000/api/data');
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log(data);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+window.onload = fetchData;
+// CONFIG – change BASE_URL when backend is running
+// ════════════════════════════════════════════
+const BASE = 'http://localhost:5000/api/data';
+let TOKEN = null;
+let CURRENT_USER = null;
+let AUTH_TARGET = null;
+
+// ─── In-memory DB for demo (when backend not running) ───────────
+const DEMO = {
+  students: {},
+  departments: [
+    {dept_id:'CSE',dept_name:'Computer Science & Engineering'},
+    {dept_id:'ECE',dept_name:'Electronics & Communication Engineering'},
+    {dept_id:'ME',dept_name:'Mechanical Engineering'},
+    {dept_id:'CE',dept_name:'Civil Engineering'},
+    {dept_id:'EEE',dept_name:'Electrical & Electronics Engineering'},
+    {dept_id:'ISE',dept_name:'Information Science & Engineering'},
+    {dept_id:'AIDS',dept_name:'AI & Data Science'},
+  ],
+  subjects: [
+    {subject_id:1,subject_code:'21CS302',subject_name:'Data Structures & Algorithms',dept_id:'CSE',semester:3},
+    {subject_id:2,subject_code:'21CS401',subject_name:'Database Management Systems',dept_id:'CSE',semester:4},
+    {subject_id:3,subject_code:'21CS403',subject_name:'Operating Systems',dept_id:'CSE',semester:4},
+    {subject_id:4,subject_code:'21CS405',subject_name:'Computer Networks',dept_id:'CSE',semester:4},
+    {subject_id:5,subject_code:'21CS501',subject_name:'Machine Learning',dept_id:'CSE',semester:5},
+  ],
+  buildings: [{building_id:1,building_name:'A Block'},{building_id:2,building_name:'B Block'},{building_id:3,building_name:'C Block'}],
+  rooms: [
+    {room_id:1,building_id:1,room_number:'101',floor_number:'Ground Floor',total_seats:30,blocked_count:0},
+    {room_id:2,building_id:1,room_number:'102',floor_number:'Ground Floor',total_seats:29,blocked_count:1},
+    {room_id:3,building_id:2,room_number:'201',floor_number:'1st Floor',total_seats:30,blocked_count:0},
+  ],
+  blocked: {2:[30]},
+  exams: [
+    {exam_id:1,subject_id:1,exam_date:'2025-06-10',exam_time:'09:00',duration_mins:180,academic_year:'2024-25',exam_type:'SEE',subject_name:'Data Structures & Algorithms',subject_code:'21CS302',dept_name:'Computer Science & Engineering'},
+    {exam_id:2,subject_id:2,exam_date:'2025-06-12',exam_time:'14:00',duration_mins:180,academic_year:'2024-25',exam_type:'SEE',subject_name:'Database Management Systems',subject_code:'21CS401',dept_name:'Computer Science & Engineering'},
+    {exam_id:3,subject_id:3,exam_date:'2025-06-14',exam_time:'09:00',duration_mins:180,academic_year:'2024-25',exam_type:'SEE',subject_name:'Operating Systems',subject_code:'21CS403',dept_name:'Computer Science & Engineering'},
+  ],
+  exam_rooms: [],
+  allocations: {},
+  attendance: {},
+  users: [
+    {user_id:1,username:'admin',password:'Admin@123',full_name:'Super Admin',role:'admin'},
+    {user_id:2,username:'invig01',password:'Invig@123',full_name:'Dr. Meena Sharma',role:'invigilator'},
+    {user_id:3,username:'invig02',password:'Invig@456',full_name:'Prof. Ravi Kumar',role:'invigilator'},
+  ],
+  _nextId: {exam_room:1,alloc:1,attend:1,blocked:100,subject:6,room:4,exam:4,user:4,bldg:4}
+};
+
+const NAMES=['Mohammed Zubair Ahmed','Priya Venkataraman','Akash Rajendra Patil','Divya Suresh Nair','Rohan Sanjay Kulkarni','Sneha Ramesh Hegde','Kiran Prakash Reddy','Anjali Mohan Sharma','Suresh Babu Krishnan','Lakshmi Prasad','Naveen Kumar Gowda','Meera Anand Kulkarni','Arjun Vikram Singh','Pooja Srinivasa Rao','Rahul Deepak Verma','Deepika Subramaniam','Sanjay Narayana Tiwari','Kavya Rajan Menon','Ravi Shankar Iyer','Preethi Suresh Nair','Ashwin Ramachandran','Shalini Gopal Reddy','Kartik Anand Bhat','Sindhu Venkatesh Rao','Harsha Vardhan','Nisha Ramesh Gupta','Ajay Suresh Patil','Swathi Krishnamurthy','Manoj Srinivasa Nair','Rekha Subramaniam'];
+for(let i=1;i<=30;i++){
+  const srn='24SUUBECS'+String(i).padStart(4,'0');
+  DEMO.students[srn]={srn,full_name:NAMES[i-1],email:`s${String(i).padStart(4,'0')}@surana.edu.in`,phone:'9876543'+String(200+i),dept_id:'CSE',dept_name:'Computer Science & Engineering',batch:'2024-28',academic_year:'2024-25',semester:1};
+}
+// Pre-allocate EX1 to R1
+DEMO.exam_rooms.push({exam_room_id:1,exam_id:1,room_id:1,invigilator_id:2});
+DEMO.allocations[1]={};
+for(let i=1;i<=30;i++) DEMO.allocations[1][i]='24SUUBECS'+String(i).padStart(4,'0');
+// EX2 to R2 (seat 30 blocked)
+DEMO.exam_rooms.push({exam_room_id:2,exam_id:2,room_id:2,invigilator_id:3});
+DEMO.allocations[2]={};
+for(let i=1;i<=29;i++) DEMO.allocations[2][i]='24SUUBECS'+String(i).padStart(4,'0');
+// Pre-set some attendance
+DEMO.attendance[1]={};
+const preStats=['present','present','present','present','absent','present','present','present','present','present','present','malpractice','present','present','present','present','present','present','present','present','present','present','present','present','present','present','present','present','present','present'];
+for(let i=1;i<=30;i++) DEMO.attendance[1][i]={status:preStats[i-1],note:i===12?'Chit found in desk':''};
+
+// ════════════════════════════════════════════
+// NAVIGATION
+// ════════════════════════════════════════════
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const pg=document.getElementById('page-'+name);
+  pg.classList.add('active');
+  if(name==='admin') renderAdmin('overview');
+  if(name==='invig') renderInvig();
+}
+
+function showAuth(role){
+  AUTH_TARGET=role;
+  document.getElementById('auth-icon').textContent=role==='admin'?'⚙️':'📋';
+  document.getElementById('auth-title').textContent=role==='admin'?'Admin Login':'Invigilator Login';
+  document.getElementById('auth-sub').textContent='Enter your credentials to access the '+role+' portal';
+  document.getElementById('auth-un').value='';
+  document.getElementById('auth-pw').value='';
+  document.getElementById('auth-err').innerHTML='';
+  showPage('auth');
+}
+
+function doLogin(){
+  const un=document.getElementById('auth-un').value.trim();
+  const pw=document.getElementById('auth-pw').value;
+  const err=document.getElementById('auth-err');
+  if(!un||!pw){err.innerHTML='<div class="auth-err">Please fill in both fields</div>';return;}
+  const user=DEMO.users.find(u=>u.username===un&&u.password===pw);
+  if(!user){err.innerHTML='<div class="auth-err">Invalid username or password</div>';return;}
+  if(user.role!==AUTH_TARGET){err.innerHTML=`<div class="auth-err">This account is not ${AUTH_TARGET==='admin'?'an admin':'an invigilator'}</div>`;return;}
+  CURRENT_USER=user;
+  if(user.role==='admin'){
+    document.getElementById('admin-name').textContent=user.full_name;
+    document.getElementById('admin-avatar').textContent=user.full_name.split(' ').map(x=>x[0]).join('').slice(0,2);
+    showPage('admin');
+  } else {
+    document.getElementById('invig-name').textContent=user.full_name;
+    document.getElementById('invig-avatar').textContent=user.full_name.split(' ').map(x=>x[0]).join('').slice(0,2);
+    showPage('invig');
+  }
+  toast('✓ Welcome, '+user.full_name+'!');
+}
+
+function doLogout(){CURRENT_USER=null;showPage('landing');}
+
+// ════════════════════════════════════════════
+// STUDENT PORTAL
+// ════════════════════════════════════════════
+function searchStudent(){
+  const srn=document.getElementById('srn-input').value.trim().toUpperCase();
+  const errEl=document.getElementById('srn-err');
+  errEl.innerHTML='';
+  if(!srn){errEl.innerHTML='<p style="color:rgba(255,180,180,0.8);font-size:13px">Please enter your SRN</p>';return;}
+  const s=DEMO.students[srn];
+  if(!s){errEl.innerHTML=`<p style="color:rgba(255,180,180,0.8);font-size:13px">No student found for <strong>${srn}</strong>. Please check with admin.</p>`;return;}
+  renderStudentResult(s);
+}
+
+function renderStudentResult(s){
+  const wrap=document.getElementById('student-result');
+  wrap.style.display='block';
+  const initials=s.full_name.split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
+  let examsHTML='';
+  DEMO.exams.forEach(ex=>{
+    const er=DEMO.exam_rooms.find(r=>r.exam_id===ex.exam_id);
+    const alloc=er?Object.entries(DEMO.allocations[er.exam_room_id]||{}).find(([,v])=>v===s.srn):null;
+    const seatNo=alloc?parseInt(alloc[0]):null;
+    const room=er?DEMO.rooms.find(r=>r.room_id===er.room_id):null;
+    const bldg=room?DEMO.buildings.find(b=>b.building_id===room.building_id):null;
+    const blockedSeats=room?(DEMO.blocked[room.room_id]||[]):[];
+    const erAlloc=er?DEMO.allocations[er.exam_room_id]||{}:{};
+    let gridHTML='';
+    if(seatNo&&room){
+      for(let i=1;i<=30;i++){
+        const isBlocked=blockedSeats.includes(i);
+        if(isBlocked){gridHTML+=`<div class="seat seat-void"></div>`;continue;}
+        const isMine=i===seatNo;
+        const isOcc=!!erAlloc[i];
+        const cls=isMine?'seat-highlight':isOcc?'seat-assigned':'seat-empty';
+        gridHTML+=`<div class="seat ${cls}" style="cursor:default"><span class="seat-num">${i}</span></div>`;
+      }
+    }
+    examsHTML+=`<div class="exam-block">
+      <div class="exam-block-head">
+        <div><h4>${ex.subject_name}</h4><div class="code">${ex.subject_code} · ${ex.exam_type} · ${ex.academic_year}</div></div>
+        ${seatNo?`<span class="chip chip-blue">Seat ${seatNo}</span>`:'<span class="chip chip-amber">Not Assigned</span>'}
+      </div>
+      <div class="exam-meta-row">
+        <div class="meta-cell"><div class="ml">📅 Date</div><div class="mv">${fmtDate(ex.exam_date)}</div></div>
+        <div class="meta-cell"><div class="ml">🕐 Time</div><div class="mv">${fmtTime(ex.exam_time)}</div></div>
+        <div class="meta-cell"><div class="ml">🏢 Building</div><div class="mv">${bldg?bldg.building_name+', Room '+room.room_number:'Not assigned'}</div></div>
+        <div class="meta-cell"><div class="ml">📍 Floor</div><div class="mv">${room?room.floor_number:'—'}</div></div>
+      </div>
+      ${seatNo&&room?`<div class="exam-block-grid"><div class="grid-hint">Room layout 5×6 — your seat (${seatNo}) is highlighted in dark blue</div><div class="seat-grid">${gridHTML}</div></div>`:''}
+    </div>`;
+  });
+  if(!examsHTML) examsHTML='<div class="msg-info">No exams found.</div>';
+  wrap.innerHTML=`<div class="student-result-wrap">
+    <div class="welcome-banner">
+      <div class="welcome-avatar">${initials}</div>
+      <div style="flex:1">
+        <h3>Welcome, ${s.full_name}!</h3>
+        <p>${s.srn} &nbsp;·&nbsp; ${s.dept_name} &nbsp;·&nbsp; Batch ${s.batch}</p>
+      </div>
+      <button class="btn btn-sm" onclick="resetStudent()">New Search</button>
+    </div>
+    <div style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:14px">Your Upcoming Exams</div>
+    ${examsHTML}
+  </div>`;
+}
+function resetStudent(){
+  document.getElementById('student-result').style.display='none';
+  document.getElementById('srn-input').value='';
+  document.getElementById('srn-err').innerHTML='';
+}
+
+// ════════════════════════════════════════════
+// ADMIN
+// ════════════════════════════════════════════
+function adminNav(name,el){
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  el.classList.add('active');
+  renderAdmin(name);
+}
+function renderAdmin(name){
+  const c=document.getElementById('admin-content');
+  const map={overview:adminOverview,students:adminStudents,departments:adminDepts,subjects:adminSubjects,rooms:adminRooms,exams:adminExams,seating:adminSeating,invigilators:adminInvigs};
+  if(map[name]) c.innerHTML=map[name]();
+}
+
+// ── OVERVIEW ──
+function adminOverview(){
+  const sc=Object.keys(DEMO.students).length;
+  const ec=DEMO.exams.length;
+  const rc=DEMO.rooms.length;
+  const ac=Object.values(DEMO.allocations).reduce((s,a)=>s+Object.keys(a).length,0);
+  let rows='';
+  DEMO.exam_rooms.forEach(er=>{
+    const ex=DEMO.exams.find(e=>e.exam_id===er.exam_id);
+    const rm=DEMO.rooms.find(r=>r.room_id===er.room_id);
+    const bl=DEMO.buildings.find(b=>b.building_id===rm?.building_id);
+    const inv=DEMO.users.find(u=>u.user_id===er.invigilator_id);
+    const cnt=Object.keys(DEMO.allocations[er.exam_room_id]||{}).length;
+    rows+=`<div class="list-row">
+      <div class="list-row-l"><h4>${ex?.subject_name} <span style="font-weight:400;color:var(--ink3);font-size:12px">${ex?.subject_code}</span></h4>
+      <p>${bl?.building_name} – Room ${rm?.room_number} &nbsp;·&nbsp; ${fmtDate(ex?.exam_date)} &nbsp;·&nbsp; Invigilator: ${inv?.full_name||'Not assigned'}</p></div>
+      <span class="chip chip-green">${cnt} students</span>
+    </div>`;
+  });
+  return `<div class="page-header"><h2>Dashboard Overview</h2><p>Surana College of Engineering &nbsp;·&nbsp; Academic Year 2024–25</p></div>
+  <div class="stats-row">
+    <div class="stat-box stat-blue"><div class="val">${sc}</div><div class="lbl">Students Loaded</div></div>
+    <div class="stat-box stat-gold"><div class="val">${ec}</div><div class="lbl">Exams Scheduled</div></div>
+    <div class="stat-box stat-green"><div class="val">${rc}</div><div class="lbl">Rooms Available</div></div>
+    <div class="stat-box"><div class="val">${ac}</div><div class="lbl">Seats Allocated</div></div>
+  </div>
+  <div class="card"><div class="card-head"><h3>Allocation Summary</h3></div>
+    <div class="card-body">${rows||'<p style="color:var(--ink3);font-size:13px">No allocations yet. Go to Allocate Seats.</p>'}</div>
+  </div>`;
+}
+
+// ── STUDENTS ──
+function adminStudents(){
+  const students=Object.values(DEMO.students);
+  let rows=students.slice(0,50).map(s=>`<tr>
+    <td style="font-weight:500">${s.srn}</td><td>${s.full_name}</td>
+    <td><span class="chip chip-blue">${s.dept_id}</span></td>
+    <td>${s.batch}</td><td>Sem ${s.semester}</td><td>${s.academic_year}</td>
+  </tr>`).join('');
+  const extra=students.length>50?`<tr><td colspan="6" style="color:var(--ink3);font-size:12px;text-align:center;padding:14px">... and ${students.length-50} more students</td></tr>`:'';
+  return `<div class="page-header"><h2>Students</h2><p>Upload CSV to load student data from college records</p></div>
+  <div class="card"><div class="card-head"><h3>Upload Student CSV</h3></div><div class="card-body">
+    <p style="font-size:13px;color:var(--ink3);margin-bottom:16px">CSV columns: <code style="background:var(--paper);padding:2px 6px;border-radius:4px">srn, full_name, email, phone, dept_id, batch, academic_year, semester</code></p>
+    <div class="upload-zone" onclick="document.getElementById('csv-file').click()">
+      <input type="file" id="csv-file" accept=".csv" onchange="handleCSV(this)">
+      <div class="up-icon">📂</div>
+      <h4>Click to Upload CSV File</h4>
+      <p>Drop your student CSV here — SRN range 24SUUBECS0001 onwards</p>
+    </div>
+    <div id="csv-msg"></div>
+    <div class="btn-row">
+      <button class="btn btn-sm" onclick="downloadTemplate()">⬇ Download Sample CSV</button>
+    </div>
+  </div></div>
+  <div class="card"><div class="card-head"><h3>Students in Database (${students.length})</h3></div>
+    ${students.length?`<div style="overflow-x:auto"><table class="data-table">
+      <thead><tr><th>SRN</th><th>Name</th><th>Dept</th><th>Batch</th><th>Semester</th><th>Acad. Year</th></tr></thead>
+      <tbody>${rows}${extra}</tbody></table></div>`
+    :'<div class="card-body"><p style="color:var(--ink3);font-size:13px">No students loaded. Upload a CSV above.</p></div>'}
+  </div>`;
+}
+
+function handleCSV(input){
+  const file=input.files[0]; if(!file) return;
+  const msg=document.getElementById('csv-msg');
+  msg.innerHTML='<div class="msg-info">Parsing CSV file...</div>';
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const lines=e.target.result.trim().split('\n');
+    const headers=lines[0].split(',').map(h=>h.trim().toLowerCase());
+    let added=0,errors=[];
+    lines.slice(1).forEach((line,i)=>{
+      if(!line.trim()) return;
+      const vals=line.split(',').map(v=>v.trim().replace(/^"|"$/g,''));
+      const row={};
+      headers.forEach((h,j)=>row[h]=vals[j]||'');
+      const srn=(row.srn||'').toUpperCase();
+      const name=row.full_name||row.name||'';
+      if(!srn||!name){errors.push(`Row ${i+2}: missing SRN or name`);return;}
+      DEMO.students[srn]={srn,full_name:name,email:row.email||'',phone:row.phone||'',dept_id:(row.dept_id||'CSE').toUpperCase(),dept_name:DEMO.departments.find(d=>d.dept_id===(row.dept_id||'CSE').toUpperCase())?.dept_name||row.dept_id,batch:row.batch||'2024-28',academic_year:row.academic_year||'2024-25',semester:parseInt(row.semester)||1};
+      added++;
+    });
+    let html=`<div class="msg-ok">✓ ${added} students loaded successfully${errors.length?` (${errors.length} warnings)`:''}</div>`;
+    if(errors.length) html+=`<div class="msg-err" style="margin-top:6px">Warnings:<br>${errors.slice(0,5).join('<br>')}</div>`;
+    msg.innerHTML=html;
+    setTimeout(()=>renderAdmin('students'),1500);
+  };
+  reader.readAsText(file);
+}
+
+function downloadTemplate(){
+  const headers='srn,full_name,email,phone,dept_id,batch,academic_year,semester\n';
+  const sample=Object.values(DEMO.students).slice(0,5).map(s=>`${s.srn},${s.full_name},${s.email},${s.phone},${s.dept_id},${s.batch},${s.academic_year},${s.semester}`).join('\n');
+  const blob=new Blob([headers+sample],{type:'text/csv'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='students_template.csv'; a.click();
+}
+
+// ── DEPARTMENTS ──
+function adminDepts(){
+  let rows=DEMO.departments.map(d=>{
+    const cnt=Object.values(DEMO.students).filter(s=>s.dept_id===d.dept_id).length;
+    return `<div class="list-row">
+      <div class="list-row-l"><h4>${d.dept_id}</h4><p>${d.dept_name}</p></div>
+      <div class="list-row-r"><span class="chip chip-blue">${cnt} students</span>
+        <button class="btn btn-sm btn-red" onclick="deleteDept('${d.dept_id}')">Remove</button></div>
+    </div>`;}).join('');
+  return `<div class="page-header"><h2>Departments</h2><p>Manage college departments and their codes</p></div>
+  <div class="card"><div class="card-head"><h3>Add Department</h3></div><div class="card-body">
+    <div class="form-grid">
+      <div class="field"><label>Department Code</label><input type="text" id="d-id" placeholder="e.g. AIDS" oninput="this.value=this.value.toUpperCase()"></div>
+      <div class="field"><label>Department Full Name</label><input type="text" id="d-name" placeholder="e.g. AI & Data Science"></div>
+    </div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="addDept()">+ Add Department</button></div>
+    <div id="dept-msg"></div>
+  </div></div>
+  <div class="card"><div class="card-head"><h3>All Departments (${DEMO.departments.length})</h3></div><div class="card-body">${rows}</div></div>`;
+}
+function addDept(){
+  const id=document.getElementById('d-id').value.trim().toUpperCase();
+  const name=document.getElementById('d-name').value.trim();
+  if(!id||!name){document.getElementById('dept-msg').innerHTML='<div class="msg-err">Fill both fields</div>';return;}
+  if(DEMO.departments.find(d=>d.dept_id===id)){document.getElementById('dept-msg').innerHTML='<div class="msg-err">Already exists</div>';return;}
+  DEMO.departments.push({dept_id:id,dept_name:name});
+  toast('✓ Department '+id+' added'); renderAdmin('departments');
+}
+function deleteDept(id){
+  DEMO.departments=DEMO.departments.filter(d=>d.dept_id!==id);
+  toast('Department removed'); renderAdmin('departments');
+}
+
+// ── SUBJECTS ──
+function adminSubjects(){
+  const dOpts=DEMO.departments.map(d=>`<option value="${d.dept_id}">${d.dept_name}</option>`).join('');
+  let rows=DEMO.subjects.map(s=>{
+    const d=DEMO.departments.find(x=>x.dept_id===s.dept_id);
+    return `<div class="list-row">
+      <div class="list-row-l"><h4>${s.subject_name} <span style="color:var(--ink3);font-size:12px;font-weight:400">${s.subject_code}</span></h4><p>${d?.dept_name||s.dept_id} · Semester ${s.semester}</p></div>
+      <div class="list-row-r"><button class="btn btn-sm btn-red" onclick="deleteSubject(${s.subject_id})">Remove</button></div>
+    </div>`;}).join('');
+  return `<div class="page-header"><h2>Subjects</h2><p>Manage subjects for each department and semester</p></div>
+  <div class="card"><div class="card-head"><h3>Add Subject</h3></div><div class="card-body">
+    <div class="form-grid">
+      <div class="field"><label>Subject Code</label><input type="text" id="sc" placeholder="e.g. 21CS401" oninput="this.value=this.value.toUpperCase()"></div>
+      <div class="field"><label>Subject Name</label><input type="text" id="sn" placeholder="e.g. Database Management Systems"></div>
+      <div class="field"><label>Department</label><select id="sd">${dOpts}</select></div>
+      <div class="field"><label>Semester</label><select id="ss">${[1,2,3,4,5,6,7,8].map(n=>`<option>${n}</option>`).join('')}</select></div>
+    </div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="addSubject()">+ Add Subject</button></div>
+    <div id="sub-msg"></div>
+  </div></div>
+  <div class="card"><div class="card-head"><h3>All Subjects (${DEMO.subjects.length})</h3></div><div class="card-body">${rows}</div></div>`;
+}
+function addSubject(){
+  const code=document.getElementById('sc').value.trim().toUpperCase();
+  const name=document.getElementById('sn').value.trim();
+  const dept=document.getElementById('sd').value;
+  const sem=parseInt(document.getElementById('ss').value);
+  if(!code||!name){document.getElementById('sub-msg').innerHTML='<div class="msg-err">Fill all fields</div>';return;}
+  if(DEMO.subjects.find(s=>s.subject_code===code)){document.getElementById('sub-msg').innerHTML='<div class="msg-err">Subject code already exists</div>';return;}
+  DEMO.subjects.push({subject_id:DEMO._nextId.subject++,subject_code:code,subject_name:name,dept_id:dept,semester:sem});
+  toast('✓ Subject added'); renderAdmin('subjects');
+}
+function deleteSubject(id){DEMO.subjects=DEMO.subjects.filter(s=>s.subject_id!==id);toast('Subject removed');renderAdmin('subjects');}
+
+// ── ROOMS ──
+function adminRooms(){
+  const bOpts=DEMO.buildings.map(b=>`<option value="${b.building_id}">${b.building_name}</option>`).join('');
+  let rows=DEMO.rooms.map(r=>{
+    const b=DEMO.buildings.find(x=>x.building_id===r.building_id);
+    const blocked=(DEMO.blocked[r.room_id]||[]).length;
+    const avail=r.total_seats-blocked;
+    return `<div class="list-row">
+      <div class="list-row-l"><h4>${b?.building_name} – Room ${r.room_number}</h4><p>${r.floor_number} &nbsp;·&nbsp; ${avail}/${r.total_seats} seats available &nbsp;·&nbsp; ${blocked} blocked</p></div>
+      <div class="list-row-r"><span class="chip chip-green">${avail} available</span></div>
+    </div>`;}).join('');
+  return `<div class="page-header"><h2>Rooms</h2><p>Manage exam halls across buildings</p></div>
+  <div class="card"><div class="card-head"><h3>Add Room</h3></div><div class="card-body">
+    <div class="form-grid">
+      <div class="field"><label>Building</label><select id="rb">${bOpts}</select></div>
+      <div class="field"><label>Room Number</label><input type="text" id="rn" placeholder="e.g. 101"></div>
+      <div class="field"><label>Floor</label><input type="text" id="rf" placeholder="e.g. Ground Floor"></div>
+      <div class="field"><label>Total Seats (max 30)</label><input type="number" id="rs" value="30" min="1" max="30"></div>
+      <div class="field form-full"><label>New Building Name (optional – leave blank if existing)</label><input type="text" id="rnb" placeholder="e.g. D Block"></div>
+    </div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="addRoom()">+ Add Room</button></div>
+    <div id="rm-msg"></div>
+  </div></div>
+  <div class="card"><div class="card-head"><h3>All Rooms (${DEMO.rooms.length})</h3></div><div class="card-body">${rows}</div></div>`;
+}
+function addRoom(){
+  const nb=document.getElementById('rnb').value.trim();
+  let bid=parseInt(document.getElementById('rb').value);
+  if(nb){bid=DEMO._nextId.bldg++;DEMO.buildings.push({building_id:bid,building_name:nb});}
+  const rn=document.getElementById('rn').value.trim();
+  const rf=document.getElementById('rf').value.trim();
+  const rs=Math.min(30,parseInt(document.getElementById('rs').value)||30);
+  if(!rn||!rf){document.getElementById('rm-msg').innerHTML='<div class="msg-err">Fill room number and floor</div>';return;}
+  DEMO.rooms.push({room_id:DEMO._nextId.room++,building_id:bid,room_number:rn,floor_number:rf,total_seats:rs,blocked_count:0});
+  if(!DEMO.blocked[DEMO._nextId.room-1]) DEMO.blocked[DEMO._nextId.room-1]=[];
+  toast('✓ Room added'); renderAdmin('rooms');
+}
+
+// ── EXAMS ──
+function adminExams(){
+  const sOpts=DEMO.subjects.map(s=>`<option value="${s.subject_id}">${s.subject_name} (${s.subject_code})</option>`).join('');
+  let rows=DEMO.exams.map(e=>`<div class="list-row">
+    <div class="list-row-l"><h4>${e.subject_name} <span style="color:var(--ink3);font-size:12px;font-weight:400">${e.subject_code}</span></h4>
+    <p>${e.dept_name} &nbsp;·&nbsp; ${fmtDate(e.exam_date)} &nbsp;·&nbsp; ${fmtTime(e.exam_time)} &nbsp;·&nbsp; <span class="chip chip-gold" style="font-size:10px">${e.exam_type}</span></p></div>
+    <button class="btn btn-sm btn-red" onclick="deleteExam(${e.exam_id})">Remove</button>
+  </div>`).join('');
+  return `<div class="page-header"><h2>Exams</h2><p>Schedule exams for each subject and semester</p></div>
+  <div class="card"><div class="card-head"><h3>Schedule Exam</h3></div><div class="card-body">
+    <div class="form-grid">
+      <div class="field form-full"><label>Subject</label><select id="es">${sOpts}</select></div>
+      <div class="field"><label>Date</label><input type="date" id="ed"></div>
+      <div class="field"><label>Time</label><select id="et"><option value="09:00">09:00 AM</option><option value="14:00">02:00 PM</option><option value="10:00">10:00 AM</option><option value="11:00">11:00 AM</option></select></div>
+      <div class="field"><label>Exam Type</label><select id="ety"><option>SEE</option><option>CIE-1</option><option>CIE-2</option><option>Supplementary</option></select></div>
+      <div class="field"><label>Academic Year</label><input type="text" id="ey" value="2024-25"></div>
+      <div class="field"><label>Duration (minutes)</label><input type="number" id="edu" value="180"></div>
+    </div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="addExam()">+ Schedule Exam</button></div>
+    <div id="ex-msg"></div>
+  </div></div>
+  <div class="card"><div class="card-head"><h3>All Exams (${DEMO.exams.length})</h3></div><div class="card-body">${rows||'<p style="color:var(--ink3);font-size:13px">No exams scheduled yet.</p>'}</div></div>`;
+}
+function addExam(){
+  const sid=parseInt(document.getElementById('es').value);
+  const date=document.getElementById('ed').value;
+  const time=document.getElementById('et').value;
+  const type=document.getElementById('ety').value;
+  const yr=document.getElementById('ey').value;
+  const dur=parseInt(document.getElementById('edu').value)||180;
+  if(!date){document.getElementById('ex-msg').innerHTML='<div class="msg-err">Select a date</div>';return;}
+  const sub=DEMO.subjects.find(s=>s.subject_id===sid);
+  const dept=DEMO.departments.find(d=>d.dept_id===sub?.dept_id);
+  DEMO.exams.push({exam_id:DEMO._nextId.exam++,subject_id:sid,exam_date:date,exam_time:time,duration_mins:dur,academic_year:yr,exam_type:type,subject_name:sub?.subject_name||'',subject_code:sub?.subject_code||'',dept_name:dept?.dept_name||''});
+  toast('✓ Exam scheduled'); renderAdmin('exams');
+}
+function deleteExam(id){DEMO.exams=DEMO.exams.filter(e=>e.exam_id!==id);toast('Exam removed');renderAdmin('exams');}
+
+// ── SEATING ──
+function adminSeating(){
+  const eOpts=DEMO.exams.map(e=>`<option value="${e.exam_id}">${e.subject_name} – ${fmtDate(e.exam_date)}</option>`).join('');
+  const rOpts=DEMO.rooms.map(r=>{const b=DEMO.buildings.find(x=>x.building_id===r.building_id);return `<option value="${r.room_id}">${b?.building_name} – Room ${r.room_number}</option>`;}).join('');
+  return `<div class="page-header"><h2>Allocate Seats</h2><p>Assign students (by SRN range) to exam rooms, and manage blocked seats</p></div>
+  <div class="card"><div class="card-head"><h3>Allocate Students</h3></div><div class="card-body">
+    <div class="form-grid">
+      <div class="field"><label>Exam</label><select id="ae">${eOpts}</select></div>
+      <div class="field"><label>Room</label><select id="ar" onchange="previewGrid()">${rOpts}</select></div>
+      <div class="field"><label>SRN From</label><input type="text" id="af" value="24SUUBECS0001" oninput="this.value=this.value.toUpperCase()"></div>
+      <div class="field"><label>SRN To</label><input type="text" id="at" value="24SUUBECS0030" oninput="this.value=this.value.toUpperCase()"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="allocate()">✓ Allocate Students</button>
+      <button class="btn" onclick="clearAlloc()">✕ Clear Allocations</button>
+      <button class="btn" onclick="previewGrid()">↺ Preview Grid</button>
+    </div>
+    <div id="alloc-msg"></div>
+  </div></div>
+  <div id="grid-wrap"></div>`;
+}
+
+function previewGrid(){
+  const eid=parseInt(document.getElementById('ae')?.value);
+  const rid=parseInt(document.getElementById('ar')?.value);
+  if(!eid||!rid) return;
+  drawAdminGrid(eid,rid);
+}
+
+function allocate(){
+  const eid=parseInt(document.getElementById('ae').value);
+  const rid=parseInt(document.getElementById('ar').value);
+  const from=document.getElementById('af').value.trim().toUpperCase();
+  const to=document.getElementById('at').value.trim().toUpperCase();
+  const msg=document.getElementById('alloc-msg');
+  if(!from.match(/^24SUUBECS\d{4}$/)||!to.match(/^24SUUBECS\d{4}$/)){msg.innerHTML='<div class="msg-err">Invalid SRN format. Example: 24SUUBECS0001</div>';return;}
+  const f=parseInt(from.slice(-4)),t=parseInt(to.slice(-4));
+  if(f>t){msg.innerHTML='<div class="msg-err">From SRN must be ≤ To SRN</div>';return;}
+  const blockedSeats=DEMO.blocked[rid]||[];
+  const avail=[];
+  for(let i=1;i<=30;i++) if(!blockedSeats.includes(i)) avail.push(i);
+  const needed=t-f+1;
+  if(needed>avail.length){msg.innerHTML=`<div class="msg-err">Need ${needed} seats but only ${avail.length} available (${blockedSeats.length} blocked)</div>`;return;}
+  // Validate students exist
+  for(let i=f;i<=t;i++){
+    const srn='24SUUBECS'+String(i).padStart(4,'0');
+    if(!DEMO.students[srn]){msg.innerHTML=`<div class="msg-err">Student ${srn} not found. Upload CSV first.</div>`;return;}
+  }
+  // Get/create exam_room
+  let er=DEMO.exam_rooms.find(r=>r.exam_id===eid&&r.room_id===rid);
+  if(!er){er={exam_room_id:DEMO._nextId.exam_room++,exam_id:eid,room_id:rid,invigilator_id:null};DEMO.exam_rooms.push(er);}
+  DEMO.allocations[er.exam_room_id]={};
+  for(let i=0;i<needed;i++){
+    const srn='24SUUBECS'+String(f+i).padStart(4,'0');
+    DEMO.allocations[er.exam_room_id][avail[i]]=srn;
+  }
+  msg.innerHTML=`<div class="msg-ok">✓ ${needed} students allocated to ${avail.length}-seat room successfully!</div>`;
+  drawAdminGrid(eid,rid);
+}
+
+function clearAlloc(){
+  const eid=parseInt(document.getElementById('ae')?.value);
+  const rid=parseInt(document.getElementById('ar')?.value);
+  const er=DEMO.exam_rooms.find(r=>r.exam_id===eid&&r.room_id===rid);
+  if(er) DEMO.allocations[er.exam_room_id]={};
+  if(document.getElementById('alloc-msg')) document.getElementById('alloc-msg').innerHTML='<div class="msg-info">Allocations cleared for this room.</div>';
+  drawAdminGrid(eid,rid);
+}
+
+function drawAdminGrid(eid,rid){
+  const wrap=document.getElementById('grid-wrap');
+  if(!wrap) return;
+  const room=DEMO.rooms.find(r=>r.room_id===rid);
+  const bldg=DEMO.buildings.find(b=>b.building_id===room?.building_id);
+  const er=DEMO.exam_rooms.find(r=>r.exam_id===eid&&r.room_id===rid);
+  const alloc=er?DEMO.allocations[er.exam_room_id]||{}:{};
+  const blocked=DEMO.blocked[rid]||[];
+  const assigned=Object.keys(alloc).length;
+  let grid='';
+  for(let i=1;i<=30;i++){
+    const isBlocked=blocked.includes(i);
+    const srn=alloc[i];
+    if(isBlocked){
+      grid+=`<div class="seat seat-blocked" onclick="toggleBlock(${rid},${i},${eid})" title="Seat ${i} – BLOCKED. Click to UNBLOCK."><span class="seat-block-icon">🚫</span><span class="seat-srn" style="font-size:9px">${i}</span></div>`;
+    } else if(srn){
+      const name=DEMO.students[srn]?.full_name.split(' ')[0]||'';
+      grid+=`<div class="seat seat-assigned" onclick="toggleBlock(${rid},${i},${eid})" title="${srn}: ${DEMO.students[srn]?.full_name||'?'} — Click to block"><span class="seat-num">${i}</span><span class="seat-srn">${srn.slice(-4)}</span></div>`;
+    } else {
+      grid+=`<div class="seat seat-empty" onclick="toggleBlock(${rid},${i},${eid})" title="Empty seat ${i} — Click to block"><span class="seat-num">${i}</span></div>`;
+    }
+  }
+  const avail=30-blocked.length;
+  wrap.innerHTML=`<div class="card">
+    <div class="card-head">
+      <h3>${bldg?.building_name} – Room ${room?.room_number} (${room?.floor_number})</h3>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <span class="chip chip-blue">${assigned} assigned</span>
+        <span class="chip chip-gold">${blocked.length} blocked</span>
+        <span class="chip" style="background:var(--paper)">${avail-assigned} empty</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="cycle-tip">💡 Click any seat to <strong>block</strong> or <strong>unblock</strong> it. Blocked seats (🚫) are excluded from allocation.</div>
+      <div class="seat-grid">${grid}</div>
+      <div class="grid-legend" style="margin-top:12px">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--blue-lt);border-color:#99BEE3"></div><span>Assigned</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f3f3f2;border-color:#e8e7e4"></div><span>Empty</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#ededeb;border-color:#dedcda"></div><span>🚫 Blocked (click to unblock)</span></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function toggleBlock(rid,seatNum,eid){
+  if(!DEMO.blocked[rid]) DEMO.blocked[rid]=[];
+  const idx=DEMO.blocked[rid].indexOf(seatNum);
+  if(idx!==-1){DEMO.blocked[rid].splice(idx,1);toast('✓ Seat '+seatNum+' unblocked');}
+  else{DEMO.blocked[rid].push(seatNum);toast('🚫 Seat '+seatNum+' blocked');}
+  drawAdminGrid(eid,rid);
+}
+
+// ── INVIGILATORS ──
+function adminInvigs(){
+  const invigs=DEMO.users.filter(u=>u.role==='invigilator');
+  const iOpts=invigs.map(u=>`<option value="${u.user_id}">${u.full_name} (${u.username})</option>`).join('');
+  const eOpts=DEMO.exams.map(e=>`<option value="${e.exam_id}">${e.subject_name} – ${fmtDate(e.exam_date)}</option>`).join('');
+  const rOpts=DEMO.rooms.map(r=>{const b=DEMO.buildings.find(x=>x.building_id===r.building_id);return `<option value="${r.room_id}">${b?.building_name} – Room ${r.room_number}</option>`;}).join('');
+  let rows=invigs.map(u=>`<div class="list-row">
+    <div class="list-row-l"><h4>${u.full_name}</h4><p>Username: <strong>${u.username}</strong></p></div>
+    <button class="btn btn-sm btn-red" onclick="deleteInvig(${u.user_id})">Remove</button>
+  </div>`).join('');
+  return `<div class="page-header"><h2>Invigilators</h2><p>Add invigilators and assign them to exam rooms</p></div>
+  <div class="card"><div class="card-head"><h3>Add Invigilator</h3></div><div class="card-body">
+    <div class="form-grid">
+      <div class="field"><label>Full Name</label><input type="text" id="in" placeholder="Prof. Suresh Kumar"></div>
+      <div class="field"><label>Username</label><input type="text" id="iu" placeholder="invig03"></div>
+      <div class="field form-full"><label>Password</label><input type="password" id="ip" placeholder="Invig@123"></div>
+    </div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="addInvig()">+ Add Invigilator</button></div>
+    <div id="inv-msg"></div>
+  </div></div>
+  <div class="card"><div class="card-head"><h3>Invigilators (${invigs.length})</h3></div><div class="card-body">${rows}</div></div>
+  <div class="card"><div class="card-head"><h3>Assign Invigilator to Exam Room</h3></div><div class="card-body">
+    <div class="form-grid">
+      <div class="field"><label>Exam</label><select id="iae">${eOpts}</select></div>
+      <div class="field"><label>Room</label><select id="iar">${rOpts}</select></div>
+      <div class="field form-full"><label>Invigilator</label><select id="iai">${iOpts}</select></div>
+    </div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="assignInvig()">Assign Invigilator</button></div>
+    <div id="assign-msg"></div>
+  </div></div>`;
+}
+function addInvig(){
+  const name=document.getElementById('in').value.trim();
+  const un=document.getElementById('iu').value.trim();
+  const pw=document.getElementById('ip').value;
+  if(!name||!un||!pw){document.getElementById('inv-msg').innerHTML='<div class="msg-err">Fill all fields</div>';return;}
+  if(DEMO.users.find(u=>u.username===un)){document.getElementById('inv-msg').innerHTML='<div class="msg-err">Username already taken</div>';return;}
+  DEMO.users.push({user_id:DEMO._nextId.user++,username:un,password:pw,full_name:name,role:'invigilator'});
+  toast('✓ Invigilator added'); renderAdmin('invigilators');
+}
+function deleteInvig(id){DEMO.users=DEMO.users.filter(u=>u.user_id!==id);toast('Invigilator removed');renderAdmin('invigilators');}
+function assignInvig(){
+  const eid=parseInt(document.getElementById('iae').value);
+  const rid=parseInt(document.getElementById('iar').value);
+  const iid=parseInt(document.getElementById('iai').value);
+  let er=DEMO.exam_rooms.find(r=>r.exam_id===eid&&r.room_id===rid);
+  if(!er){er={exam_room_id:DEMO._nextId.exam_room++,exam_id:eid,room_id:rid,invigilator_id:iid};DEMO.exam_rooms.push(er);}
+  else{er.invigilator_id=iid;}
+  const inv=DEMO.users.find(u=>u.user_id===iid);
+  document.getElementById('assign-msg').innerHTML=`<div class="msg-ok">✓ ${inv.full_name} assigned to this exam room</div>`;
+  toast('✓ Invigilator assigned');
+}
+
+// ════════════════════════════════════════════
+// INVIGILATOR PORTAL
+// ════════════════════════════════════════════
+let invigSelectedER=null;
+
+function renderInvig(){
+  const c=document.getElementById('invig-content');
+  const myRooms=DEMO.exam_rooms.filter(er=>er.invigilator_id===CURRENT_USER?.user_id);
+  if(!myRooms.length){c.innerHTML='<div class="page-header"><h2>My Rooms</h2></div><div class="msg-info">You have not been assigned to any exam room yet. Contact the admin.</div>';return;}
+  if(!invigSelectedER||!myRooms.find(r=>r.exam_room_id===invigSelectedER)) invigSelectedER=myRooms[0].exam_room_id;
+  const opts=myRooms.map(er=>{
+    const ex=DEMO.exams.find(e=>e.exam_id===er.exam_id);
+    const rm=DEMO.rooms.find(r=>r.room_id===er.room_id);
+    const bl=DEMO.buildings.find(b=>b.building_id===rm?.building_id);
+    return `<option value="${er.exam_room_id}"${er.exam_room_id===invigSelectedER?' selected':''}>${ex?.subject_name} – ${bl?.building_name} Rm ${rm?.room_number} – ${fmtDate(ex?.exam_date)}</option>`;
+  }).join('');
+  c.innerHTML=`<div class="page-header"><h2>Invigilator Dashboard</h2><p>Mark attendance for your assigned exam rooms</p></div>
+  <div class="room-select-banner">
+    <label>Your Assigned Room</label>
+    <select onchange="invigSelectedER=parseInt(this.value);renderInvigGrid()">${opts}</select>
+  </div>
+  <div id="invig-grid"></div>`;
+  renderInvigGrid();
+}
+
+function renderInvigGrid(){
+  const wrap=document.getElementById('invig-grid');
+  if(!wrap||!invigSelectedER) return;
+  const er=DEMO.exam_rooms.find(r=>r.exam_room_id===invigSelectedER);
+  if(!er){wrap.innerHTML='';return;}
+  const room=DEMO.rooms.find(r=>r.room_id===er.room_id);
+  const bldg=DEMO.buildings.find(b=>b.building_id===room?.building_id);
+  const ex=DEMO.exams.find(e=>e.exam_id===er.exam_id);
+  const alloc=DEMO.allocations[invigSelectedER]||{};
+  const blocked=DEMO.blocked[er.room_id]||[];
+  const att=DEMO.attendance[invigSelectedER]||{};
+  if(!DEMO.attendance[invigSelectedER]) DEMO.attendance[invigSelectedER]={};
+
+  let present=0,absent=0,malp=0,total=0;
+  Object.keys(alloc).forEach(seat=>{
+    total++;
+    const st=att[seat]?.status||'present';
+    if(st==='present')present++;else if(st==='absent')absent++;else malp++;
+  });
+
+  let grid='';
+  for(let i=1;i<=30;i++){
+    const isBlocked=blocked.includes(i);
+    if(isBlocked){grid+=`<div class="seat seat-void"></div>`;continue;}
+    const srn=alloc[i];
+    if(!srn){grid+=`<div class="seat seat-empty" style="cursor:default"><span class="seat-num">${i}</span></div>`;continue;}
+    const status=att[i]?.status||'present';
+    const student=DEMO.students[srn];
+    grid+=`<div class="seat seat-${status}" onclick="cycleAtt(${i})" title="${srn}: ${student?.full_name||'?'}">
+      <span class="seat-num">${i}</span>
+      <span class="seat-srn">${srn.slice(-4)}</span>
+    </div>`;
+  }
+
+  wrap.innerHTML=`
+  <div class="stats-row">
+    <div class="stat-box"><div class="val">${total}</div><div class="lbl">Total Students</div></div>
+    <div class="stat-box stat-blue"><div class="val">${present}</div><div class="lbl">Present</div></div>
+    <div class="stat-box stat-red"><div class="val">${absent}</div><div class="lbl">Absent</div></div>
+    <div class="stat-box" style="border-color:rgba(154,84,18,0.3)"><div class="val" style="color:var(--amber)">${malp}</div><div class="lbl">Malpractice</div></div>
+  </div>
+  <div class="card">
+    <div class="card-head">
+      <h3>${bldg?.building_name} – Room ${room?.room_number} &nbsp;<span style="font-size:13px;font-weight:400;color:var(--ink3)">${room?.floor_number}</span></h3>
+      <div><span class="chip chip-gold">${ex?.subject_name} · ${fmtDate(ex?.exam_date)} ${fmtTime(ex?.exam_time)}</span></div>
+    </div>
+    <div class="card-body">
+      <div class="cycle-tip">💡 Click a seat to cycle: <strong>Present</strong> (blue) → <strong>Absent</strong> (red) → <strong>Malpractice</strong> (amber) → Present</div>
+      <div class="grid-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--blue-lt);border-color:#99BEE3"></div>Present</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--red-lt);border-color:rgba(181,43,43,0.3)"></div>Absent</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--amber-lt);border-color:rgba(154,84,18,0.3)"></div>Malpractice</div>
+      </div>
+      <div class="seat-grid">${grid}</div>
+    </div>
+  </div>`;
+}
+
+function cycleAtt(seatNum){
+  if(!DEMO.attendance[invigSelectedER]) DEMO.attendance[invigSelectedER]={};
+  const cur=DEMO.attendance[invigSelectedER][seatNum]?.status||'present';
+  const next=cur==='present'?'absent':cur==='absent'?'malpractice':'present';
+  DEMO.attendance[invigSelectedER][seatNum]={status:next,note:''};
+  const labels={present:'✓ Present',absent:'✗ Absent',malpractice:'⚠ Malpractice'};
+  toast('Seat '+seatNum+': '+labels[next]);
+  renderInvigGrid();
+}
+
+// ════════════════════════════════════════════
+// UTILS
+// ════════════════════════════════════════════
+function fmtDate(d){if(!d)return'—';const dt=new Date(d+'T00:00:00');return dt.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});}
+function fmtTime(t){if(!t)return'—';const[h,m]=t.split(':');const hr=parseInt(h);return`${hr>12?hr-12:hr===0?12:hr}:${m} ${hr>=12?'PM':'AM'}`;}
+
+let toastTimer;
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.innerHTML=msg; el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove('show'),2400);
+}
+</script>
+</body>
+</html>
